@@ -1,11 +1,17 @@
 package project.topka.beacon11;
 
 import android.content.Intent;
+<<<<<<< Updated upstream
+=======
+import android.net.Uri;
+>>>>>>> Stashed changes
 import android.net.http.HttpResponseCache;
+import android.os.AsyncTask;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +22,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.params.HttpConnectionParams;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -24,6 +32,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+<<<<<<< Updated upstream
+=======
+import java.net.URL;
+>>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
 import com.google.*;
@@ -31,6 +43,10 @@ import com.google.*;
 import javax.net.ssl.HttpsURLConnection;
 
 import project.topka.beacon11.MapsActivity;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 public class CreateBeacon extends AppCompatActivity {
 
@@ -39,11 +55,13 @@ public class CreateBeacon extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_beacon);
 
-
-
     }
 
+<<<<<<< Updated upstream
     public void sendBeacon(View view) {
+=======
+        public void sendBeacon(View view) {
+>>>>>>> Stashed changes
         //post Beaon info to server
         //Fields
         EditText mTitleField = (EditText) findViewById(R.id.beacon_name);
@@ -66,6 +84,7 @@ public class CreateBeacon extends AppCompatActivity {
 //        String location;
 
         Intent intent = new Intent(this, MapsActivity.class);
+<<<<<<< Updated upstream
         intent.putExtra("lat",latcoord);
         intent.putExtra("longit",longcoord);
         intent.putExtra("title",title);
@@ -90,6 +109,39 @@ public class CreateBeacon extends AppCompatActivity {
 //        }
 
 
+=======
+        Intent intent2 = new Intent(this, NearbyBeacons.class);
+
+        intent.putExtra("lat",latcoord);
+        intent.putExtra("longit",longcoord);
+        intent.putExtra("title",title);
+
+        intent2.putExtra("lat",latcoord);
+        intent2.putExtra("longit",longcoord);
+        intent2.putExtra("title",title);
+
+        startActivity(intent2);
+        finish();
+    }
+
+
+
+//        HttpsURLConnection urlConnection = null;
+//        BufferedReader reader = null;
+//
+//        String forecastJsonStr = null;
+//
+//        String format = "json";
+
+//        try{
+//            String path = "http://localhost:8080/webapi/API/";
+//            Uri builtUri = Uri.parse(path).buildUpon();
+//        }catch{
+//
+//        }
+
+
+>>>>>>> Stashed changes
 //        HttpResponse response = null;
 //        try {
 //            HttpClient client = new DefaultHttpClient();

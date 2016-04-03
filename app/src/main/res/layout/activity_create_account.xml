@@ -33,13 +33,23 @@
         android:id="@+id/create_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< Updated upstream
         android:hint="Password"/>
+=======
+        android:hint="Password"
+        android:inputType="textPassword"/>
+>>>>>>> Stashed changes
 
     <EditText
         android:id="@+id/confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< Updated upstream
         android:hint="Confirm password" />
+=======
+        android:hint="Confirm password"
+        android:inputType="textPassword"/>
+>>>>>>> Stashed changes
 
     <Button
         android:layout_width="match_parent"

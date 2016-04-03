@@ -15,7 +15,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+<<<<<<< Updated upstream
 import project.topka.beacon11.UpdateBeacon;
+=======
+>>>>>>> Stashed changes
 
 
 public class MapsActivity extends FragmentActivity implements LocationProvider.LocationCallback {
@@ -41,12 +44,15 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
 
         mLocationProvider = new LocationProvider(this, this);
 
+<<<<<<< Updated upstream
         // GET REQUEST (Not working)
         UpdateBeacon.getData(); // Connect, need to close connection in UpdateBeacon.java
 
 
 
 
+=======
+>>>>>>> Stashed changes
         // GESTURE DETECTION //
         gestureDetector = new GestureDetector(this, new SwipeGestureDetector());
         gestureListener = new View.OnTouchListener() {
@@ -133,6 +139,7 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         super.onPause();
         mLocationProvider.disconnect();
     }
+<<<<<<< Updated upstream
 
     public void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
@@ -141,12 +148,23 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         currentLongitude = location.getLongitude();
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
+=======
+
+    public void handleNewLocation(Location location) {
+        Log.d(TAG, location.toString());
+
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+
+>>>>>>> Stashed changes
         mMap.addMarker(new MarkerOptions().position(new LatLng(currentLatitude, currentLongitude)).title("Current Location"));
         MarkerOptions options = new MarkerOptions()
                 .position(latLng)
                 .title("I am here!");
         mMap.addMarker(options);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+<<<<<<< Updated upstream
     }
 
     private void setUpMapIfNeeded() {
@@ -162,6 +180,23 @@ public class MapsActivity extends FragmentActivity implements LocationProvider.L
         }
     }
 
+=======
+    }
+
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
+            }
+        }
+    }
+
+>>>>>>> Stashed changes
     private void setUpMap() {
 //        LatLng hofstra = new LatLng(40.714111,-73.6027117);
 //        mMap.addMarker(new MarkerOptions().position(hofstra).title("My Beacon"));
