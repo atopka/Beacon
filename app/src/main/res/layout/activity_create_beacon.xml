@@ -23,11 +23,27 @@
         android:inputType="textMultiLine" />
 
     <EditText
-        android:id="@+id/beacon_location"
+        android:id="@+id/beacon_long_coord"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Location"
-        android:inputType="textPostalAddress"/>
+        android:hint="Longitude"
+        android:inputType="text"
+        />
+
+    <EditText
+        android:id="@+id/beacon_lat_coord"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Latitude"
+        android:inputType="text"
+        />
+
+    <!--<EditText-->
+        <!--android:id="@+id/beacon_location"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Location"-->
+        <!--android:inputType="textPostalAddress"/>-->
 
     <EditText
         android:id="@+id/beacon_time_start"
@@ -57,6 +73,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Create New Beacon"
+        android:onClick="sendBeacon"
         />
 
 

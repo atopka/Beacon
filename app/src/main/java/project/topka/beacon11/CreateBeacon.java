@@ -1,5 +1,6 @@
 package project.topka.beacon11;
 
+import android.content.Intent;
 import android.net.http.HttpResponseCache;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -9,14 +10,27 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.apache.http.params.HttpConnectionParams;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.*;
+
+import javax.net.ssl.HttpsURLConnection;
+
+import project.topka.beacon11.MapsActivity;
 
 public class CreateBeacon extends AppCompatActivity {
 
@@ -29,32 +43,75 @@ public class CreateBeacon extends AppCompatActivity {
 
     }
 
-
-
-    public void sendBeacon(View view)
-    {
+    public void sendBeacon(View view) {
+        //post Beaon info to server
         //Fields
         EditText mTitleField = (EditText) findViewById(R.id.beacon_name);
         EditText mDescriptionField = (EditText) findViewById(R.id.beacon_description);
-        EditText mLocationField = (EditText) findViewById(R.id.beacon_location);
+//        EditText mLocationField = (EditText) findViewById(R.id.beacon_location);
         EditText mTimeStartField = (EditText) findViewById(R.id.beacon_time_start);
         EditText mTimeEndField = (EditText) findViewById(R.id.beacon_time_end);
         EditText mInterestsField = (EditText) findViewById(R.id.beacon_interests);
+        EditText mLongitudeField = (EditText) findViewById(R.id.beacon_long_coord);
+        EditText mLatitudeField = (EditText) findViewById(R.id.beacon_lat_coord);
 
 
         String title = mTitleField.getText().toString();
         String desc = mDescriptionField.getText().toString();
-        Double latcoord;
-        Double longcoord;
+        double latcoord = Double.parseDouble(mLatitudeField.getText().toString());
+        double longcoord = Double.parseDouble(mLongitudeField.getText().toString());
         ArrayList<String> interests = new ArrayList<String>(); //use loop to fill
-        Double duration;
-        Double range;
-        String location;
+        double duration;
+        double range;
+//        String location;
 
-        String path = "http://localhost:8080/webapi/API/";
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("lat",latcoord);
+        intent.putExtra("longit",longcoord);
+        intent.putExtra("title",title);
+        startActivity(intent);
+        finish();
+    }
+
+
+
+//        HttpsURLConnection urlConnection = null;
+//        BufferedReader reader = null;
+//
+//        String forecastJsonStr = null;
+//
+//        String format = "json";
+
+//        try{
+//            String path = "http://localhost:8080/webapi/API/";
+//            Uri builtUri = Uri.parse(path).buildUpon();
+//        }catch{
+//
+//        }
+
+
+//        HttpResponse response = null;
+//        try {
+//            HttpClient client = new DefaultHttpClient();
+//            HttpGet request = new HttpGet();
+//            request.setURI(new URI("https://www.googleapis.com/shopping/search/v1/public/products/?key={my_key}&country=&q=t-shirts&alt=json&rankByrelevancy="));
+//            response = client.execute(request);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        } catch (ClientProtocolException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        return response;
+    }
 //        HttpClient client = new DefaultHttpClient();
 //        HttpConnectionParams.setConnectionTimeout(client.getParams(),100000);
 //        HttpResponse response;
+
+
 //        JSONObject json = new JSONObject();
 //        try {
 //
@@ -64,84 +121,6 @@ public class CreateBeacon extends AppCompatActivity {
 //        }
 
 
-    }
+   // }
 
-    //JSON READER
-    public List readJsonStream(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            return readBeaconArray(reader);
-        }finally {
-            reader.close();
-        }
-    }
-
-    public List readBeaconArray (JsonReader reader) throws IOException {
-        List beacons = new ArrayList();
-
-        reader.beginArray();
-        while (reader.hasNext()) {
-            beacons.add(readMessage(reader));
-        }
-        reader.endArray();
-        return beacons;
-    }
-
-    public ArrayList<String> readStringArray(JsonReader reader) throws IOException {
-        ArrayList<String> strings = new ArrayList<String>();
-        reader.beginArray();
-        while(reader.hasNext()) {
-            strings.add(reader.nextString());
-        }
-        reader.endArray();
-        return strings;
-    }
-
-    public Message readMessage(JsonReader reader) throws IOException {
-        int length;
-        String title = null;
-        String desc = null;
-        Double latcoord = null;
-        Double longcoord = null;
-        ArrayList<String> interests = new ArrayList<String>();
-        Double duration = null;
-        Double range = null;
-        String location = null;
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("title")) {
-                title = reader.nextString();
-            }
-            else if (name.equals("desc")) {
-                desc = reader.nextString();
-            }
-            else if (name.equals("latcoord")) {
-                latcoord = reader.nextDouble();
-            }
-            else if (name.equals("longcoord")) {
-                longcoord = reader.nextDouble();
-            }
-            else if (name.equals("interests")) {
-                interests = readStringArray(reader);
-            }
-            else if (name.equals("duration")) {
-                duration = reader.nextDouble();
-            }
-            else if (name.equals("range")) {
-                range = reader.nextDouble();
-            }
-            else if (name.equals("location")) {
-                location = reader.nextString();
-            }
-            else{
-                reader.skipValue();
-            }
-        }
-        reader.endObject();
-        //return new Message(title,desc,latcoord,longcoord,interests,duration,range,location);
-        return new Message();
-    }
-
-}
+    // JSON READER, should go in ManageBeacons
